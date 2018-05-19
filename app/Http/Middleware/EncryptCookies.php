@@ -12,6 +12,6 @@ class EncryptCookies extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        // 'mycookie' = сюда (в исключения) пишем названия куки, которую нужно передавать в незашифрованном виде
     ];
 }
