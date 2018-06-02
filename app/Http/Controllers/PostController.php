@@ -24,7 +24,7 @@ class PostController extends Controller
             abort(404);
         }
 
-        return  view('layouts-secondary', [
+        return  view('client.layouts-secondary', [
             'page' => 'pages.post',
             'title' => $post->title,
             'post' => $post
@@ -45,7 +45,7 @@ class PostController extends Controller
 
     public function showCreateForm()
     {
-        return view('layouts.secondary', [
+        return view('client.layouts.secondary', [
             'page' => 'pages.create',
             'title' => 'Новый пост',
             'msg' => ''
@@ -59,7 +59,7 @@ class PostController extends Controller
 
     public function showEditForm($id)
     {
-        return view('layouts.secondary', [
+        return view('client.layouts.secondary', [
             'page' => 'pages.edit',
             'title' => 'Редактирование поста',
             'msg' => ''

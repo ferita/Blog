@@ -1849,7 +1849,7 @@ textarea.form-control {
     background-color: #fcf8e3
 }
 
-.has-error .checkbox,.has-error .checkbox-inline,.has-error .control-label,.has-error .help-block,.has-error .radio,.has-error .radio-inline {
+.has-error, .has-error .checkbox,.has-error .checkbox-inline,.has-error .control-label,.has-error .help-block,.has-error .radio,.has-error .radio-inline {
     color: #b94a48
 }
 
@@ -1871,6 +1871,20 @@ textarea.form-control {
     background-color: #f2dede
 }
 
+.inputError {
+	color: #b94a48;
+    border-color: #b94a48;
+	margin-top: -30px;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+
+.signup form input.redBorder {
+	
+    border-color: #b94a48;
+	
+}
+	
 .has-success .checkbox,.has-success .checkbox-inline,.has-success .control-label,.has-success .help-block,.has-success .radio,.has-success .radio-inline {
     color: #468847
 }
@@ -6490,7 +6504,9 @@ font-family: 'Roboto Condensed', sans-serif;
 }
 
 .contact, .login, .signup {
-    padding: 10px 0 45px
+    padding: 10px 0px 40px 0px;
+	text-align: center;
+    overflow: hidden
 }
 
 .contact form, .login form, .signup form {

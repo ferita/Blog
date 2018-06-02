@@ -40,6 +40,9 @@
                     <li class="">
                         <a href="/login" class="dropdown-toggle" data-toggle="dropdown">Вход</a>
                     </li>
+                    <li class="">
+                        <a href="/logout" class="dropdown-toggle" data-toggle="dropdown">Выход</a>
+                    </li>
                 </ul>
             </div>
         </nav>

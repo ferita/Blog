@@ -39,6 +39,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(
+            'App\Includes\Interfaces\CounterInterface', // интерфейс 
+            'App\Includes\Classes\MyCounter' // реализация интерфейса
+        );
+
+
+        $this->app->singleton('AwesomeCounter', function ($app) {
+            return new MyCounter;
+        });
         //
     }
 }

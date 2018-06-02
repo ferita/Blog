@@ -1,6 +1,6 @@
 <?php 
 
-// Route::prefix('admin')->group(function() {
+// 	
 Route::get('/', function () { 
 return view('layouts.admin.welcome');
 });
@@ -12,5 +12,8 @@ Route::get('users', function() {
 Route::post('users', function() {
 	return view('layouts.admin.users');
 });
+
+Route::get('posts', 'PostController@index')
+	->name('admin.post.index');
 
 
