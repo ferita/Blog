@@ -2,44 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Includes\Classes\MyCounter;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Cookie;
+use App\Includes\Interfaces\CounterInterface;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
-    public function index()
-    {
-    	return view('layouts.primary', [
+	protected $myCounter;
+
+	public function __construct(CounterInterface $myCounter)
+	{
+		//$myCounter = resolve('AwesomeCounter');
+		$this->myCounter = $myCounter;
+	}
+
+	public function index()
+	{
+		return view('client.layouts.primary', [
     		'page' => 'pages.main']);
+	}
+    public function test()
+    {
+    	$this->myCounter->increment();
+    	$this->myCounter->increment();
+    	$this->myCounter->increment();
+    	$this->myCounter->decrement();
+    	
+    	$myCounter2 = resolve('AwesomeCounter');
+    	$myCounter3 = resolve('AwesomeCounter');
+
+    	dump($this->myCounter, $myCounter2, $myCounter3);
+    	return $this->myCounter->getValue();
     }
 
     public function about()
     {
-    	return view('layouts.primary', [
+    	return view('client.layouts.primary', [
     		'page' => 'pages.about']);
     }
 
     public function contact()
     {
-    	return view('layouts.primary', [
+    	return view('client.layouts.primary', [
     		'page' => 'pages.feedback']);
     }
 
-     public function elements()
+    public function elements()
     {
-    	return view('layouts.secondary', [
+    	return view('client.layouts.secondary', [
     		'page' => 'pages.elements']);
     }
 
-      public function post()
+    public function post()
     {
-    	return view('layouts.secondary', [
+    	return view('client.layouts.secondary', [
     		'page' => 'pages.post']);
     }
 
     public function search_results()
     {
-    	return view('layouts.primary', [
+    	return view('client.layouts.primary', [
     		'page' => 'pages.search-results']);
     }
 
@@ -47,11 +72,35 @@ class MainController extends Controller
      	return response('<h1>404 Not Found</h1>', 404);
     }
 
-    
-   //  public function response1() {
-   //  	return response('<h1>404 Not Found</h1>', 404)
-	  //   //	->header('Content-Type', 'text/plain')
-	 	// 	->header('X-Powered-By', 'Laravel 5.6')
-			// ->cookie('mycookie', 'val', 60*24);;
-   //  }
+    public function db()
+    {
+       /* $users = DB::table('users')->get()
+            ->where('id', '2')
+           ->Where('name', 'Vasiliy');
+            ->select('name', 'email as user_email')
+            ->get(['name', 'email']);
+            ->count();
+            ->exists();
+        foreach ($users as $user) {
+             echo $user->name . ' - ' .  $user->email, '<br>';
+   		}
+        DB::table('users')
+            ->where('id', 2)
+            ->update([
+                'name' => 'Ivan Ivanov',
+                'password' => 999999
+            ]);
+	    debug($users);
+	    dump($users);
+       */
+    }
+
+
+   /*public function response1() {
+    	return response('<h1>404 Not Found</h1>', 404)
+	    	->header('Content-Type', 'text/plain')
+	 		->header('X-Powered-By', 'Laravel 5.6')
+			->cookie('mycookie', 'val', 60*24);;
+    }
+    */
 }

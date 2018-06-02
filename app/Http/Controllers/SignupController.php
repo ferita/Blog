@@ -2,40 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
-//use App\Models\MySql;
-session_start();
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SignupController extends Controller
 {
     public function showSignupForm()
     {	
-    	return view('layouts.secondary', [
+    	return view('client.layouts.secondary', [
     		'page' => 'pages.signup',
             'title' => 'Регистрация нового пользователя',
     		'msg' => 'Создайте логин и пароль']);
     }
 
-    public function postSignupForm(Request $request)
+    public function postSignupForm(RegisterRequest $request)
     {
-    	$inputData = $request->all(); // получаем массив введенных данных
-    	$login = $request->input('login');
-    	$password = $request->input('password');
+        $input = $request->all();
 
-    	//dump($inputData);
-    	if ($login =='' || $password == '') {
-    		return view('layouts.secondary', [
-	    		'page' => 'pages.signup',
-	    		'errorMessage' => 'Заполните все поля']);
-    	}
+        $id = DB::table('users')->insertGetId([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'password' => bcrypt($input['password']),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'phone' => $input['phone']
+        ]);
 
-    	 // добавить проверку на уникальность логина
-
-    	else if(true) {
-            return view('layouts.secondary', [
-                'page' => 'pages.welcome',
-                'login' => $login,
-                'msg'=> 'Вы успешно зарегистрировались.']);
-    	}
+       	return view('client.layouts.secondary', [
+            'page' => 'pages.welcome',
+            'name' => $input['name'],
+            'msg'=> 'Вы успешно зарегистрировались.'
+        ]);
     }
 }

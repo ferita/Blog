@@ -4,12 +4,13 @@
     @include('parts.header')
 @endsection
 
+@section('search_panel')
+    @include('parts.search-panel')
+@endsection
+
 @section('content')
     <div class="container">
         @section('center-column')
-        	<h2>Здравствуйте, {{ $name }} !</h2>
-        	<p>{{ $msg }}</p>
-        	<br>
         @show
     </div>
 @endsection

@@ -3,43 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\Models\MySql;
-session_start();
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    protected $redirectAfterLogout = '/login';
+
+
     public function showLoginForm()
     {	
-    	return view('layouts.secondary', [
-    		'page' => 'pages.login',
-            'title' => 'Вход',
-    		'msg' => 'Введите логин и пароль']);
+    	return view('client.layouts.secondary', [
+    		'page' => 'auth.login',
+            'title' => 'Вход']);
     }
 
-    public function postLoginForm(Request $request)
+    public function authenticate(Request $request)
     {
-    	$inputData = $request->all(); // получаем массив введенных данных
-    	$login = $request->input('login');
-    	$password = $request->input('password');
+        $this->validate($request, [
+            'email' => 'required|email',  
+            'password' => 'required|max:32|min:8',
+        ]);  
 
-    	//dump($inputData);
-    	if ($login =='' || $password == '') {
-    		return view('layouts.secondary', [
-	    		'page' => 'pages.login',
-	    		'errorMessage' => 'Заполните все поля']);
-    	}
-    	 
-    	else if(true) {
-    		return view('layouts.secondary', [
+    	$credentials = $request->only('email', 'password');
+        $remember = $request->only('remember');
+       
+        // $user = Auth::user(); Не работает, дает NULL 
+        // dump($user);
+
+        if (Auth::attempt($credentials, $remember)) {
+            // Authentication passed...
+            return view('client.layouts.secondary', [
                 'page' => 'pages.welcome',
-                'login' => $login,
-                'msg'=> 'Вы успешно авторизованы.']);
-    	}
-    	else {
-    		return view('layouts.secondary', [
-	    		'page' => 'pages.login',
-	    		'errorMessage' => 'Неправильный логин или пароль']);
-    	}
-    	//abort(403); // access denied
+                'name' => $request->user()->name,
+                'msg'=> 'Вы успешно авторизованы.'
+            ]); 
+        }
+       
+        return back()->withErrors(['Ошибка авторизации'])->withInput();
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }
