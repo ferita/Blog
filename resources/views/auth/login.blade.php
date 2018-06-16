@@ -6,7 +6,7 @@
 			        <div class="col-xs-10  col-xs-offset-1">
 			        	<h3> Вход в  личный кабинет </h3>
 			        	<div class="">
-				        	<form class="form-horizontal" method="post">
+				        	<form class="form-horizontal" method="POST">
 
 					            @if($errors->any())
 									<p class="has-error">{{ $errors->first() }}<p>
@@ -39,8 +39,8 @@
 					            <div class="form-group">
                     				<div class="col-sm-offset-3 col-sm-3">
                     					<div class="checkbox">
-                    						<label>
-					                		<input type="checkbox" name="remember">Запомнить меня</label>
+                    						<label for="inputCheckbox">
+					                		<input type="checkbox" id="inputCheckbox" name="remember">Запомнить меня</label>
 					                	</div>
 					                </div>
 					            </div>

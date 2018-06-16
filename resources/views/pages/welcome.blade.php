@@ -8,7 +8,7 @@
     <div class="container">
         @section('center-column')
         	<h2>Здравствуйте, {{ $name }} !</h2>
-        	<p>{{ $msg }}</p>
+        	<p>{{ $msg or '' }}</p>
         	<br>
         @show
     </div>

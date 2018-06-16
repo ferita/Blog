@@ -1,52 +1,39 @@
-@extends('layouts.base')
-
-@section('header')
-    @include('parts.header')
-@endsection
-
-@section('content')
-    <div class="container">
-        @section('center-column')
-        	<h2>Список пользователей</h2>
-    		<table class="table  table-hover">
-                <thead>
-                <tr class="su-even">
-                    <th>User ID</th>
-                    <th>Login</th>
-                    <th>Name</th>
+<div class="container">
+    @section('center-column')
+    	<h2>Список пользователей</h2>
+        <a href="{{ route('admin.create') }}" class="btn btn-primary">Добавить пользователя</a>
+		<table class="table  table-hover">
+            <thead>
+            <tr class="su-even">
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Дата регистрации</th>
+                <th>Статус</th>
+                <th>Редактировать</th>
+                <th>Забанить</th>
+                <th>Удалить</th>
+            </tr>
+            </thead>
+			<tbody>
+			
+			@forelse($users as $user)
+                <tr>
+                    <td> {{ $user->id }} </td>
+                    <td> {{ $user->name }} </td>
+                    <td> {{ $user->email }} </td>
+                    <td> {{ $user->created_at }} </td>
+                    <td> to do </td>
+                    <td> <a href="admin/users/edit/{{$user->id}}">Редактировать</a></td>
+                    <td> <a href="admin/users/ban/{{$user->id}}">Забанить</a></td>
+                    <td> <a href="admin/users/delete/{{$user->id}}">Удалить</a></td>
                 </tr>
-                </thead>
-				<tbody>
-    			@php
-    				//для теста вывода таблицы
-    			
-	    			$user = new stdClass();
-	    			$user->user_id = '1';
-	    			$user->login = 'User Login';
-	    			$user->name = 'User Name';
-	    			$users = [$user, $user, $user];
-    			@endphp
+            @empty
+            	Нет пользователей
+            @endforelse
+            </tbody>
+        </table>
+    @show
+</div>
 
-    			@forelse($users as $user)
-    			 
-                    <tr>
-                        <td> {{ $user->user_id }} </td>
-                        <td> {{ $user->login }} </td>
-                        <td> {{ $user->name }} </td>
-                    </tr>
-                @empty
-                	Нет пользователей
-                @endforelse
-                </tbody>
-            </table>
-        @show
-    </div>
-@endsection
 
-@section('footer_links')
-    @include('parts.footer-links')
-@endsection
-
-@section('footer_copyright')
-    @include('parts.footer-copyrights')
-@endsection

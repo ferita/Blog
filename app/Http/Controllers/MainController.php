@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Customer;
+use App\Models\Product;
+use App\Models\Order;
 use App\Includes\Classes\MyCounter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use App\Includes\Interfaces\CounterInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 
 class MainController extends Controller
 {
@@ -43,7 +48,7 @@ class MainController extends Controller
     	return view('client.layouts.primary', [
     		'page' => 'pages.about']);
     }
-
+   
     public function contact()
     {
     	return view('client.layouts.primary', [
@@ -68,7 +73,8 @@ class MainController extends Controller
     		'page' => 'pages.search-results']);
     }
 
-    public function response404() {
+    public function response404() 
+    {
      	return response('<h1>404 Not Found</h1>', 404);
     }
 
@@ -76,7 +82,7 @@ class MainController extends Controller
     {
        /* $users = DB::table('users')->get()
             ->where('id', '2')
-           ->Where('name', 'Vasiliy');
+            ->Where('name', 'Vasiliy');
             ->select('name', 'email as user_email')
             ->get(['name', 'email']);
             ->count();
@@ -93,6 +99,34 @@ class MainController extends Controller
 	    debug($users);
 	    dump($users);
        */
+    }
+
+    public function relations()
+    {
+    	$content = '';
+    	// $userModel = User::find(1);
+    	// $userCustomer = $userModel->customer;
+    	// dump($userModel, $userCustomer);
+
+    	// $orders = Customer::find(1)->orders->first();
+    	// dump($orders);
+
+    	// $ordersByCustomer = Order::where('customer_id', '1')
+    	// 	->get();
+    	
+    		
+
+    	dump($route, $name);
+
+    	return view('client.layouts.primary', [
+    		'page' => 'pages.welcome',
+    		'content' => $content
+
+    	]);
+    }
+    public function getUser() 
+    {
+    	$user = Auth::user();
     }
 
 

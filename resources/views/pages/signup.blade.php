@@ -9,14 +9,7 @@
 		            <div class="form-group">
 	                    <label for="inputName" class="col-sm-3 control-label">Имя/Логин</label>
 	                    <div class="col-sm-9">
-	                    	@php 
-		                    	if($errors->has('name')) {
-			                		$class = "redBorder";
-		                    	} else {
-									$class = "";
-		                    	}
-		                	@endphp
-		                	<input type="text" class = "{{ $class }}" id="inputName" name="name" placeholder='Не менее трех символов*' value="{{ old('name', '') }}">
+	                    	<input type="text" class = "{{ $errors->has('name') ? 'redBorder' : '' }}" id="inputName" name="name" placeholder='Не менее трех символов*' value="{{ old('name', '') }}">
 		                	@if ($errors->has('name'))
 		                		<div class="inputError">
 		                			{{ $errors->first('name') }}
@@ -78,28 +71,13 @@
 		                	@endif
 		               	</div>
 		            </div>
-		            <div class="form-group">
-                    	<label for="inputPhone" class="col-sm-3 control-label"> Телефон</label>
-                    	<div class="col-sm-9">
-                    		@php 
-		                    	if($errors->has('phone')) {
-			                		$class = "redBorder";
-		                    	} else {
-									$class = "";
-		                    	}
-		                	@endphp
-		                  	<input type="phone" class = "{{ $class }}" id="inputPhone" name="phone" placeholder='+7 (999) 999-99-99' value="{{ old('phone', '') }}">
-		                  	@if ($errors->has('phone'))
-		                  		<div class="inputError">
-		                			{{ $errors->first('phone') }}
-		                		</div>
-		                	@endif
-		                </div>
-		            </div>    
+		            
 		           	<div class="form-group">
                    		<div class="col-sm-offset-3 col-sm-6">	           
 		           			<div class="checkbox">
-		                		<input type="checkbox" name="agree">Согласен на хранение и обработку персональных данных
+		           				<label for="inputCheckbox">
+		                			<input type="checkbox" id="inputCheckbox" name="agree" {{ old('agree') ? 'checked' : ''}}>Согласен на хранение и обработку персональных данных
+		                		</label>
 		                	</div>
 		                	@if ($errors->has('agree'))
 		                		<div class="has-error">

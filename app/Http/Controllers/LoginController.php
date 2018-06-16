@@ -7,6 +7,8 @@ use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 
 class LoginController extends Controller
 {
@@ -29,17 +31,16 @@ class LoginController extends Controller
 
     	$credentials = $request->only('email', 'password');
         $remember = $request->only('remember');
-       
-        // $user = Auth::user(); Не работает, дает NULL 
-        // dump($user);
-
+        
+        $route = Route::current();
+        $routeUri = $route->uri; 
+        
         if (Auth::attempt($credentials, $remember)) {
             // Authentication passed...
-            return view('client.layouts.secondary', [
-                'page' => 'pages.welcome',
-                'name' => $request->user()->name,
-                'msg'=> 'Вы успешно авторизованы.'
-            ]); 
+            if ($routeUri == 'admin/login' && ($request->email == 'adm@mail.ru')) {
+               return redirect()->route('admin.welcome')->withInput();
+            }
+            return redirect()->route('products.index'); 
         }
        
         return back()->withErrors(['Ошибка авторизации'])->withInput();

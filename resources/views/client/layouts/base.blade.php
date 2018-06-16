@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <base href="{{ route('site.main.index') }}">
     <link rel="shortcut icon" href="assets/images/favicon.png">
-    <title>{{ $title or 'Laravel Blog' }}</title>
+    <title>{{ $title or 'TheCake' }}</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,400italic|Roboto:400,700,500|Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="assets/css/main.css" />
    
@@ -41,11 +41,15 @@
 @show
 
 @section('bottom_scripts')
-    <script src="assets/js/main.js"></script> <!-- изменить -->
+    <script src="assets/js/main.js"></script> 
 @show
 
 @section('app_scripts')
-    <!-- добавить -->
+    
+@show
+
+@section('extra-js')
+   
 @show
 
 </body>

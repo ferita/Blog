@@ -12,7 +12,6 @@
                 @include('widgets.categories')
                 @include('widgets.featured-post')
                 @include('widgets.posts')
-                @include('widgets.tags')
             </div>
         </div>
     </div>
