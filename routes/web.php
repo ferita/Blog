@@ -11,34 +11,39 @@
 |
 */
 
-// Route::get('/', function () { // Route - фасад, get - метод
-//     return view('welcome');
-// });
 
 Route::get('/', 'MainController@index')
-	->name('site.main.index'); // запрос get по / перенаправляем на MainController и его метод index()
+	->name('site.main.index'); 
 Route::get('/test', 'MainController@test');
-
 Route::get('/about', 'MainController@about')
 	->name('aboutRoute');
-
 Route::get('/elements', 'MainController@elements');
-
 Route::get('/contact', 'MainController@contact');
-
 Route::get('/db', 'MainController@db');
-
 Route::get('/search-results', 'MainController@search_results');
+
+
+Route::get('/products', 'ProductController@index')
+	->name('products.index');
+Route::get('/products/{id}', 'ProductController@productById')
+	->name('productOne');
+
+
+Route::get('/cart', 'CartController@index')
+	->name('cart.index');
+Route::post('/cart', 'CartController@store')
+	->name('cart.store');
+Route::patch('/cart/{id}', 'CartController@update')
+	->name('cart.update');
+Route::delete('/cart/{id}', 'CartController@destroy')
+	->name('cart.destroy');
+
 	
 Route::get('/login', 'LoginController@showLoginForm')
 	->name('login');
-
 Route::post('/login', 'LoginController@authenticate');
-
 Route::get('/logout', 'LoginController@logout');
-
 Route::get('/signup', 'SignupController@showSignupForm');
-
 Route::post('/signup', 'SignupController@postSignupForm');
 
 Route::group(['prefix'=>'post'], function() {
@@ -51,18 +56,7 @@ Route::group(['prefix'=>'post'], function() {
 	Route::get('/delete/{id}', 'PostController@delete');
 });
 
-Route::get('/404', 'MainController@response404');
+Route::get('/404', 'MainController@response404')->name('404');
+Route::get('/relations', 'MainController@relations');
 
-
-
-// Route::view('/404', '404'); // такой формат подходит для статики
-
-// Route::get('/test', function () {  
-//     return 'test';
-// });
-
-// Route::get('/about/{id?}', 'MainController@about') // id - необязат.
-
-
-//Auth::routes();
 

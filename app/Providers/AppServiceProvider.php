@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,8 +14,9 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        View::share('name', 'Guest'); // это по сути объявление глобальной переменной, на раннем этапе
+    {   
+        Schema::defaultStringLength(191);
+       // View::share('name', 'Guest'); // это по сути объявление глобальной переменной, на раннем этапе
        // View::share('name', $this->getName());
        // View::share('title', 'Default title');
        // View::share('page', 'login');
