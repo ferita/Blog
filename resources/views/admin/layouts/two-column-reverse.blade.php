@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('header')
-    @include('parts.header')
+    @include('admin.parts.header')
 @endsection
 
 @section('search_panel')

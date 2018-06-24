@@ -1,7 +1,9 @@
 <div class="container">
     @section('center-column')
     	<h2>Список пользователей</h2>
-        <a href="{{ route('admin.create') }}" class="btn btn-primary">Добавить пользователя</a>
+        @can('create', App\Models\User::class)
+            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Добавить пользователя</a>
+        @endcan
 		<table class="table  table-hover">
             <thead>
             <tr class="su-even">
@@ -10,9 +12,11 @@
                 <th>Email</th>
                 <th>Дата регистрации</th>
                 <th>Статус</th>
-                <th>Редактировать</th>
-                <th>Забанить</th>
-                <th>Удалить</th>
+                @can('update', App\Models\User::class)
+                    <th>Редактировать</th>
+                   <!--  <th>Забанить</th> -->
+                    <th>Удалить</th>
+                @endcan
             </tr>
             </thead>
 			<tbody>
@@ -23,10 +27,28 @@
                     <td> {{ $user->name }} </td>
                     <td> {{ $user->email }} </td>
                     <td> {{ $user->created_at }} </td>
-                    <td> to do </td>
-                    <td> <a href="admin/users/edit/{{$user->id}}">Редактировать</a></td>
-                    <td> <a href="admin/users/ban/{{$user->id}}">Забанить</a></td>
-                    <td> <a href="admin/users/delete/{{$user->id}}">Удалить</a></td>
+                    <td> @switch($user->status)
+                            @case(1)
+                                пользователь
+                                @break
+                            @case(2)
+                                менеджер
+                                @break
+                            @case(3)
+                                админ
+                                @break
+                            @case(0)
+                                забанен
+                                @break
+                            @default
+                                пользователь
+                        @endswitch
+                    </td>
+                    @can('update', App\Models\User::class)
+                        <td> <a href="admin/users/edit/{{$user->id}}">Редактировать</a></td>
+                       <!--  <td> <a href="admin/users/ban/{{$user->id}}">Забанить</a></td> -->
+                        <td> <a href="admin/users/delete/{{$user->id}}">Удалить</a></td>
+                    @endcan
                 </tr>
             @empty
             	Нет пользователей

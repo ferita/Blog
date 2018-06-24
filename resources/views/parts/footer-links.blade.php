@@ -17,11 +17,9 @@
                 <h6>Навигация</h6>
                 <hr>
                 <ul class="navigation">
-                    <li> <a href="/">Домашняя</a> </li>
-                    <li> <a href="/post">Новости</a> </li>
-                    <li> <a href="/elements">Статьи</a> </li>
-                    <li> <a href="/about">Обо мне</a> </li>
-                    <li> <a href="/contact">Обратная связь</a> </li>
+                    <li> <a href="/">Главная</a> </li>
+                    <li> <a href="/products">Ассортимент</a> </li>
+                    <li> <a href="/feedback">Обратная связь</a> </li>
                 </ul>
             </nav>
         </div>

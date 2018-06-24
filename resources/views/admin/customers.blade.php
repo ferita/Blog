@@ -1,6 +1,7 @@
 <div class="container">
     @section('center-column')
     	<h2>Список покупателей</h2>
+       
 		<table class="table  table-hover table-admin">
             <thead>
             <tr class="su-even">
@@ -11,6 +12,8 @@
                 <th>Email</th>
                 <th>Телефон</th>
                 <th>Дата регистрации</th>
+                <th>Редактировать</th>
+                <th>Удалить</th>
             </tr>
             </thead>
 			<tbody>
@@ -34,6 +37,8 @@
                         <td> {{ $email or ''}} </td>
                         <td> {{ $customer->phone or ''}} </td>
                         <td> {{ $customer->created_at or '' }} </td>
+                        <td> <a href="admin/customers/edit/{{$customer->id}}">Редактировать</a></td>
+                        <td> <a href="admin/customers/delete/{{$customer->id}}">Удалить</a></td>
                     </tr>
                 @empty
                 	Нет покупателей

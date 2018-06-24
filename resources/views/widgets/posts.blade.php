@@ -1,14 +1,15 @@
  <div class="widget-posts  push-down-30">
-     <h6>Популярное / Свежее</h6>
+     <h6>Попробуйте наши новинки!</h6>
+     <p>здесь будут новые товары</p>
 
-        <ul class="nav  nav-tabs">
+      <!--   <ul class="nav  nav-tabs">
             <li class="active">
                 <a href="#recent-posts" data-toggle="tab"> <span class="glyphicon  glyphicon-time"></span> &nbsp;Свежо</a>
             </li>
             <li>
                 <a href="#popular-posts" data-toggle="tab"> <span class="glyphicon  glyphicon-flash"></span> &nbsp;Популярно </a>
             </li>
-        </ul>
+        </ul> -->
 
         <div class="tab-content">
             <div class="tab-pane  fade  in  active" id="recent-posts">

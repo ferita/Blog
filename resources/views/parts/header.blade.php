@@ -16,10 +16,10 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="collapse  navbar-collapse" id="readable-navbar-collapse">
                 <ul class="navigation">
-                   <!--  <li class="dropdown active">
+                    <li class="dropdown active">
                         <a href="/" class="dropdown-toggle" data-toggle="dropdown">Главная</a>
                     </li>
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Тест</a>
                         <ul class="navigation__dropdown">
                             <li><a href="#">Пункт 1</a></li>
@@ -32,14 +32,14 @@
                     <li class="">
                         <a href="/products" class="dropdown-toggle" data-toggle="dropdown">Ассортимент</a>
                     </li>
-                     <li class="">
+                    <!--  <li class="">
                         <a href="/elements" class="dropdown-toggle" data-toggle="dropdown">Верстка</a>
-                    </li>
+                    </li> -->
                    <!--  <li class="">
                         <a href="/about" class="dropdown-toggle" data-toggle="dropdown">Обо мне</a>
                     </li> -->
                     <li class="">
-                        <a href="/contact" class="dropdown-toggle" data-toggle="dropdown">Обратная связь</a>
+                        <a href="/feedback" class="dropdown-toggle" data-toggle="dropdown">Обратная связь</a>
                     </li>
                     @if (!Auth::user())
                         <li class="">

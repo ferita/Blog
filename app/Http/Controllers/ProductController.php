@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
@@ -14,15 +15,41 @@ class ProductController extends Controller
     public function index() 
     {
         $products = DB::table('products')->simplePaginate(6);
+
+        $categories = Category::all();
+
         return view('client.layouts.primary-reverse', [
             'page' => 'pages.products',
-            'products'=> $products
+            'products'=> $products,
+            'categories' =>  $categories
         ]);
+    }
+
+    public function byCategory($id)
+    {
+        $categories = Category::all();
+        try {
+            $category = Category::where('id', $id)
+                ->firstOrFail();
+        } catch (\Exception $e) {
+            abort(404);
+        }
+        $products = $category->products()
+            ->orderBy('id', 'ASC')
+            ->simplePaginate(6);
+
+        return view('client.layouts.primary-reverse', [
+            'page' => 'pages.products',
+            'title' => 'Товары в категории "' . $category->name . '"',
+            'products'=> $products,
+            'categories' => $categories
+        ]);
+
     }
 
     public function productById($id)
     {
-
+        $categories = Category::all();
         try {
             $product = Product::find($id);
 
@@ -33,7 +60,8 @@ class ProductController extends Controller
         return  view('client.layouts.primary-reverse', [
             'page' => 'pages.product',
             'title' => $product->name,
-            'product' => $product
+            'product' => $product,
+            'categories' => $categories
         ]);
 
     }

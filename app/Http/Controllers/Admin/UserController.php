@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\COntrollers\Controller;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller 
 
 {
 	public function index()
 	{
+        $this->authorize('view', User::class);
+
 		$users = User::orderby('id', 'ASC')
 				->get();
 
@@ -27,6 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
+
         return view('admin.layouts.primary-reverse', [
             'page' => 'admin.parts.user_edit',
         ]); 
@@ -40,18 +44,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {	
-    	$user = new User;
-    	$user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-     // $user->status = $request->status;
-        $user->save();
+        $this->authorize('create', User::class);
+    	$user = User::create([
+    		'name' => $request->name,
+       		'email' => $request->email,
+        	'password' => bcrypt($request->password)
+    	]);
 
         return redirect()->route('admin.users');
     }
 
 	public function edit($id)
-	{
+	{  
+        $this->authorize('update', User::class);
 		$user = User::find($id);
 
 		if ($user === null) {
@@ -67,11 +72,12 @@ class UserController extends Controller
 	}
 
 	public function update (Request $request, $id)
-    {
-        $user = User::find($id);
+    {   
+        $this->authorize('update', User::class);
+        $user = User::findOrFail($id); 
         $user->name = $request->name;
         $user->email = $request->email;
-     // $user->status = $request->status;
+        $user->status = $request->status;
         $user->save();
 
         return redirect()->route('admin.users');
@@ -79,9 +85,16 @@ class UserController extends Controller
 
 	
 	public function delete($id)
-	{
-		User::find($id)->delete();
+	{  
+        $this->authorize('delete', User::class);
+		try {
+			$user = User::findOrFail($id);
+		} catch (\Exception $e) {
+			return "Пользователя с таким id не существует";
+		}
 
+		$user->delete();
+		
 		return redirect()->route('admin.users');
 	}
 }

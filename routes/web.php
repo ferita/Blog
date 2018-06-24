@@ -18,7 +18,8 @@ Route::get('/test', 'MainController@test');
 Route::get('/about', 'MainController@about')
 	->name('aboutRoute');
 Route::get('/elements', 'MainController@elements');
-Route::get('/contact', 'MainController@contact');
+Route::get('/feedback', 'MainController@feedback');
+Route::post('/feedback', 'MainController@feedbackPost')->name('feedbackPost');
 Route::get('/db', 'MainController@db');
 Route::get('/search-results', 'MainController@search_results');
 
@@ -27,6 +28,8 @@ Route::get('/products', 'ProductController@index')
 	->name('products.index');
 Route::get('/products/{id}', 'ProductController@productById')
 	->name('productOne');
+Route::get('/products/category/{id}', 'ProductController@byCategory')
+	->name('productByCategory');
 
 
 Route::get('/cart', 'CartController@index')
@@ -37,6 +40,11 @@ Route::patch('/cart/{id}', 'CartController@update')
 	->name('cart.update');
 Route::delete('/cart/{id}', 'CartController@destroy')
 	->name('cart.destroy');
+
+Route::get('/order', 'OrderController@index')
+	->name('order.index');
+Route::post('/order', 'OrderController@store')
+	->name('order.store');
 
 	
 Route::get('/login', 'LoginController@showLoginForm')

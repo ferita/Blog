@@ -37,7 +37,7 @@
                         <div class="widget-cake__image-container">
                             <div class="widget-cake__avatar-pic">
                                 @if($product->image)
-                                    <a href="/products/{{ $product->id }}"><img src="assets/images/products/{{ $product->image }}" alt="Cake image" width="90" height="90"><</a>
+                                    <a href="/products/{{ $product->id }}"><img src="assets/images/products/{{ $product->image }}" alt="Cake image" width="90" height="90"></a>
                                 @endif
                             </div>
                         </div>
