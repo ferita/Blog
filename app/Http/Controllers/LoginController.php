@@ -40,7 +40,9 @@ class LoginController extends Controller
             if ($routeUri == 'admin/login' && ($request->email == 'adm@mail.ru')) {
                return redirect()->route('admin.welcome')->withInput();
             }
-            return redirect()->route('products.index'); 
+            if (Auth::user()->status != 0) {
+                return redirect()->route('products.index');
+            }
         }
        
         return back()->withErrors(['Ошибка авторизации'])->withInput();

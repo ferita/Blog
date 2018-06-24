@@ -19,28 +19,14 @@
 		                </div>
 		            </div>
 		           	<div class="form-group">
-	                    <label for="inputPassword" class="col-sm-3 control-label">Пароль</label>
-	                    <div class="col-sm-9">
-		                	<input type="password" id="inputPassword" name="password">
-		                </div>
-		           	</div>
-		           	<div class="form-group">
 	                    <label for="inputStatus" class="col-sm-3 control-label">Статус</label>
 	                    <div class="col-sm-9">
 	                    	<select id="inputStatus" name="status">
-			                	<option value="user">Пользователь</option>
-			                    <option value="manager">Менеджер</option>
-			                    <option value="admin">Админ</option>
+			                	<option value="1">Пользователь</option>
+			                    <option value="2">Менеджер</option>
+			                    <option value="3">Админ</option>
+			                    <option value="0">Забанен</option>
 		                	</select>
-		                </div>
-		           	</div>
-		           	<div class="form-group">
-	                    <label for="inputBan" class="col-sm-3 control-label">Бан</label>
-	                    <div class="col-sm-9">
-		                	<select id="inputBan" name="ban">
-			                	<option value="ban">Забанить</option>
-			                    <option value="unban">Разбанить</option>
-			                </select>
 		                </div>
 		           	</div>
 		            <input class = "btn btn-primary btn-submit" type="submit" value="Сохранить">

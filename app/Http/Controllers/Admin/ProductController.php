@@ -10,7 +10,8 @@ class ProductController extends Controller
 
 {
 	public function index()
-	{
+	{  
+        $this->authorize('view', Product::class);
 		$products = Product::orderby('id', 'ASC')
 				->get();
 
@@ -19,21 +20,88 @@ class ProductController extends Controller
             'products' => $products
         ]); 
 	}
+
+    
+	/**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $this->authorize('create', Product::class);
+        return view('admin.layouts.primary-reverse', [
+            'page' => 'admin.parts.product_edit',
+        ]); 
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {	
+        $this->authorize('create', Product::class);
+    	$product = new Product;
+    	$product->name = $request->name;
+        $product->slug = $request->slug;
+        $product->description = $request->description;
+        $product->category_id = $request->category_id;
+        $product->price = $request->price;
+        $product->is_active = $request->is_active;
+        $product->save();
+
+
+        return redirect()->route('admin.products');
+    }
+
 	public function edit($id = null)
 	{
-		$user = User::find($id);
-		
+        $this->authorize('update', Product::class);
+		$product = Product::find($id);
 
-		return  view('admin.layouts.primary-reverse', [
-            'page' => 'admin.users',
-            'users' => $users
+		if ($product === null) {
+			abort(404);
+		}
+		
+		return view('admin.layouts.primary-reverse', [
+            'page' => 'admin.parts.product_edit',
+            'product' => $product,
+            'name' => $product->name,
+            'slug' => $product->slug,
+            'description' => $product->description,
+            'price' => $product->price,
         ]); 
 	}
 
+	public function update (Request $request, $id)
+    {
+        $this->authorize('update', Product::class);
+        $product = Product::findOrFail($id);
+        $product->name = $request->name;
+        $product->slug = $request->slug;
+        $product->description = $request->description;
+        $product->category_id = $request->category_id;
+        $product->price = $request->price;
+ 		$product->is_active = $request->is_active;
+        $product->save();
+
+        return redirect()->route('admin.products');
+    }
+
 	public function delete($id)
 	{
-		Post::find($id)->delete();
+        $this->authorize('delete', Product::class);
+		try {
+            $product = Product::findOrFail($id);
+        } catch (\Exception $e) {
+            return "Товара с таким id не существует";
+        }
 
-		return ['result' => 'OK'];
+        $product->delete();
+        
+        return redirect()->route('admin.products');
 	}
 }

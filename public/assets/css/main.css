@@ -5139,7 +5139,12 @@ hr {
     border-top-right-radius: 6px;
     border-top-left-radius: 6px
 }
-
+.wp-post-image-100 {
+    width: 100%;
+    height: auto;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px
+}
 .header {
     position: relative;
     background-color: #fff;

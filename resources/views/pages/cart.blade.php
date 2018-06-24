@@ -54,8 +54,12 @@
             @else
                 <div class="total-count">
                     <p class="total">ИТОГО: <strong>{{ Cart::total() }}</strong></p>
-                    <a href="#" class="btn btn-primary">Оформить заказ</a>
-                </div>
+                    @if (Auth::check())
+                        <a href="{{ route('order.index') }}" class="btn btn-primary">Оформить заказ</a>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-primary">Войти и заказать</a>
+                    @endif
+                 </div>
             @endif
         </div>
     </div>
