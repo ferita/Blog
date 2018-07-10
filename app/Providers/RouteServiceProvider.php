@@ -41,6 +41,10 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAdminRoutes();
 
+        // $this->mapImageRoutes();
+
+        // $this->mapDownloadRoutes();
+
         //
     }
 
@@ -87,4 +91,6 @@ class RouteServiceProvider extends ServiceProvider
              ->namespace($this->namespace)
              ->group(base_path('routes/admin.php'));
     }
+
+    
 }

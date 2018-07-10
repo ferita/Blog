@@ -1,7 +1,7 @@
 <div class="edit boxed push-down-45">
     <div class="row">
         <div class="col-xs-10  col-xs-offset-1">
-        	<h3>Редактирование заказа</h3>
+        	<h3>Редактирование заказа № {{$order->id}}</h3>
         	<div class="edit">
 	        	<form class="form-horizontal" method="post">
 	        		{{ csrf_field() }}
@@ -56,8 +56,8 @@
 	                    <label for="inputPaid" class="col-sm-3 control-label">Оплачен?</label>
 	                    <div class="col-sm-9">
 	                    	<select id="inputPaid" name="is_paid">
-			                	<option value="1">Да </option>
-			                    <option value="0">Нет</option>
+			                	<option value="1" {{ $is_paid == 1 ? 'selected' : ''}}>Да </option>
+			                    <option value="0" {{ $is_paid == 0 ? 'selected' : ''}}>Нет</option>
 		                	</select>
 		                </div>
 		           	</div>
@@ -65,8 +65,8 @@
 	                    <label for="inputShipped" class="col-sm-3 control-label">Доставлен?</label>
 	                    <div class="col-sm-9">
 	                    	<select id="inputShipped" name="is_shipped">
-			                	<option value="1">Да </option>
-			                    <option value="0">Нет </option>
+			                	<option value="1" {{ $is_shipped == 1 ? 'selected' : ''}}>Да </option>
+			                    <option value="0" {{ $is_shipped == 0 ? 'selected' : ''}}>Нет </option>
 		                	</select>
 		                </div>
 		           	</div>
@@ -74,9 +74,9 @@
 	                    <label for="inputStatus" class="col-sm-3 control-label">Статус</label>
 	                    <div class="col-sm-9">
 	                    	<select id="inputStatus" name="is_active">
-			                	<option value="1">Активен</option>
-			                    <option value="0">Исполнен</option>
-			                    <option value="2">Отменен</option>
+			                	<option value="1" {{ $is_active == 1 ? 'selected' : ''}}>Активен</option>
+			                    <option value="2" {{ $is_active == 2 ? 'selected' : ''}}>Исполнен</option>
+			                    <option value="0" {{ $is_active == 0 ? 'selected' : ''}}>Отменен</option>
 		                	</select>
 		                </div>
 		           	</div>

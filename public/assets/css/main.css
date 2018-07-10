@@ -637,7 +637,12 @@ pre code {
 }
 .container.container_admin {
     margin-right: 10px;
-    margin-left: 10px;
+    margin-left: 15px;
+    padding-left: 15px;
+    padding-right: 15px
+}
+.container.container_lk {
+    margin: 0 auto;
     padding-left: 15px;
     padding-right: 15px
 }
@@ -1901,14 +1906,14 @@ textarea.form-control {
 }
 
 .inputError {
-	color: #b94a48;
-    border-color: #b94a48;
+	color: #f57775;
+    border-color: #f57775;
 	margin-top: -30px;
 	margin-bottom: 10px;
 	font-size: 14px;
 }
 
-.signup form input.redBorder {
+.signup form input.redBorder, .order form input.redBorder, .order form select.redBorder {
 	
     border-color: #b94a48;
 	
@@ -1957,8 +1962,10 @@ textarea.form-control {
    height: 34px;
    margin-bottom: 20px;
 }
+.order .multiselect select  {
+    height: 90px;
+}
 .qnt select {
-   
    background: #f8f9fa;
    border-radius: 6px;
    outline: none;
@@ -2242,14 +2249,15 @@ textarea.form-control {
     margin-top: 5px
 }
 
-input[type=button].btn-block,input[type=reset].btn-block, {
+input[type=button].btn-block, {
     width: 100%
 }
 
 .signup input[type=submit], .login input[type=submit], .create input[type=submit],
-.edit input[type=submit], .delete input[type=submit]
+.edit input[type=submit], .delete input[type=submit], .edit input[type=reset]
 {
 	width: auto;
+	margin-right: 20px;
 }
 .fade {
     opacity: 0;
@@ -2404,7 +2412,9 @@ input[type=button].btn-block,input[type=reset].btn-block, {
 }
 
 .glyphicon-home:before {
-    content: "\e021"
+    content: "\e021";
+	font-size: 15px;
+	
 }
 
 .glyphicon-file:before {
@@ -2768,7 +2778,10 @@ input[type=button].btn-block,input[type=reset].btn-block, {
 }
 
 .glyphicon-shopping-cart:before {
-    content: "\e116"
+    content: "\e116";
+	font-size: 15px;
+	
+	
 }
 
 .glyphicon-folder-close:before {
@@ -3774,7 +3787,11 @@ input[type=button].btn-block,input[type=reset].btn-block, {
         float:left
     }
 }
-
+@media (min-width: 992px) {
+    .navbar-header.header-cart {
+        margin-left: 300px;
+    }
+}
 .navbar-collapse {
     overflow-x: visible;
     border-top: 1px solid transparent;
@@ -3892,7 +3909,7 @@ input[type=button].btn-block,input[type=reset].btn-block, {
     }
 }
 
-.navbar-toggle {
+.navbar-toggle, .header-cart {
     position: relative;
     float: right;
     padding: 9px 10px
@@ -4815,7 +4832,7 @@ td.hidden-md,th.hidden-md {
 }
 
 @media (min-width: 992px) and (max-width:1199px) {
-    .hidden-md,td.hidden-md,th.hidden-md,tr.hidden-md {
+    .hidden-md, .header-cart.hidden-md, td.hidden-md,th.hidden-md,tr.hidden-md {
         display:none!important
     }
 }
@@ -5153,6 +5170,10 @@ hr {
     box-shadow: 0 1px 5px #dcdddd
 }
 
+.header-admin {
+
+	background-color: #e4e1f5;
+}
 .boxed {
     background-color: #fff;
     border: 1px solid #e4e4e4;
@@ -5196,11 +5217,11 @@ h1+h3,h2+h3 {
 }
 
 .logo {
-    margin-right: 15px
+    margin-right: 25px
 }
 
 .logo img {
-    height: 70px;
+    height: 65px;
     width: auto
 }
 
@@ -5280,10 +5301,13 @@ h1+h3,h2+h3 {
     background-color: transparent;
     border: 0;
     font-family: 'Roboto Condensed', sans-serif;
-    margin: 0;
+   
+	margin: 0 auto;
     min-height: 0
 }
-
+.navbar-admin {
+    margin-left: 160px;
+}
 .navigation {
     list-style: none;
     margin: 0;
@@ -5426,6 +5450,11 @@ h1+h3,h2+h3 {
     background-color: none
 }
 
+.category-list>li>a:hover, .admin-menu>li>a:hover, button.btn.btn-cart:hover {
+    
+    background-color: #e4e1f5;
+}
+
 @media (min-width: 992px) {
     .navigation__dropdown>li>a:hover {
         color:#f3f4f4;
@@ -5456,23 +5485,24 @@ h1+h3,h2+h3 {
     background: #fff
 }
 
-.search__container,.social__container,.social__container--dropdown {
+.glyph__container,.social__container,.social__container--dropdown {
     display: block;
     height: 70px;
     width: 65px;
     text-align: center;
     line-height: 70px;
     float: right;
-    border-left: 1px solid #dcdddd;
-    border-right: 1px solid #dcdddd;
     color: #51ab6d
 }
 
-.search__container:hover,.social__container--dropdown:hover,.social__container:hover {
+.glyph__container:hover,.social__container--dropdown:hover,.social__container:hover {
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
     color: #51ab6d;
-    background-color: #f3f4f4
+    background-color: #f3f4f4;
+	border-left: 1px solid #dcdddd;
+    border-right: 1px solid #dcdddd;
+	font-size: 15px;
 }
 
 .social__container {
@@ -5938,6 +5968,7 @@ font-family: 'Roboto Condensed', sans-serif;
 }
 
 .widget-contact__text {
+	margin-top: 21px;
     font-family: "Open Sans",sans-serif;
     font-size: 14px;
     color: #9a9a90
@@ -5974,14 +6005,18 @@ float: right;
 height: 55px;
 padding: 10px;
 padding-left: 15px;
-margin: 10px;
-border: 1px solid #c7bbbb;
-border-radius: 10px;
--moz-border-radius: 10px;
--webkit-border-radius: 10px;
-background: #e8e3e3;
+margin: 11px 10px 4px 10px;
 }
 
+.cart-amount, .cart-pic {
+	display: inline-block;
+	margin-right: 5px;
+	vertical-align: middle;
+	
+}
+.cart-amount {
+	padding-top: 3px;
+}
 .footer {
     background-color: #fff;
     border-top: 1px solid #e4e4e4;
@@ -7359,3 +7394,7 @@ h1,h2,h3,h4,h5 {
 	
 	color: #7a81a2;
 }
+
+.details {
+	text-align: left;
+	font-size: 18px;

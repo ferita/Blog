@@ -2,7 +2,7 @@
     <div class="container">
         <div class="col-xs-12  col-md-3">
             <nav class="widget-navigation  push-down-30">
-                <h6>Я в социальных сетях</h6>
+                <h6>Мы в социальных сетях</h6>
                 <hr>
                 <div class="social-icons  widget-social-icons">
                     <a href="#" class="social-icons__container"> <span class="zocial-facebook"></span> </a>
@@ -26,13 +26,13 @@
         <div class="col-xs-12  col-md-4 col-md-offset-1">
             <div class="widget-contact  push-down-30">
                 <h6>Контакты</h6>
+                @php $settingsModel = App\Models\Setting::firstOrFail(); @endphp
                 <hr>
-                    <span class="widget-contact__text">
-                    <span class="widget-contact__title">Иванов Иван Иванович</span>
-                    <br>Email: ivan@ivanov.ru
-                    <br>Skype: ivanovivan
-                    <br>VK: https://vk.com/ivanovoficial
-                    </span>
+                <div class="widget-contact__text">
+                <p class="widget-contact__title"> {{ $settingsModel->company_name }} </p>
+                <p class="widget-contact__title">E-mail: {{  $settingsModel->company_email }} </p>
+                <p class="widget-contact__title">Телефон:  {{ $settingsModel->company_phone }} </p>
+                </div>
             </div>
         </div>
     </div>

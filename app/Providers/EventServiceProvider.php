@@ -15,11 +15,16 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\FeedbackWasCreated' => [
             'App\Listeners\FeedbackMailNotify',
+            'App\Listeners\FeedbackMailCustomerNotify',
             'App\Listeners\FeedbackDBSave',
         ],
         'App\Events\OrderWasCreated' => [
             'App\Listeners\OrderMailManagerNotify',
-            'App\Listeners\OrderDBSave',
+            'App\Listeners\OrderMailCustomerNotify',
+       //     'App\Listeners\OrderDBSave',
+        ],
+        'App\Events\OrderWasCancelled' => [
+            'App\Listeners\OrderCancelledMailNotify',
         ],
     ];
 

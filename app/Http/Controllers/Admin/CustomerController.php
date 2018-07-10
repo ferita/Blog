@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Customer;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\COntrollers\Controller;
 
@@ -20,6 +21,20 @@ class CustomerController extends Controller
             'customers' => $customers
         ]); 
 	}
+
+    public function ordersByCustomer($id)
+    {   
+        $this->authorize('view', Customer::class);
+        $customer = Customer::findOrFail($id);
+        $orders = Order::where('customer_id', $id)->get();
+
+        return view('admin.layouts.primary-reverse', [
+            'page' => 'admin.parts.orders_by_customer',
+            'customer' => $customer,
+            'orders' => $orders
+        ]); 
+    }
+
 	/**
      * Show the form for creating a new resource.
      *
@@ -33,6 +48,7 @@ class CustomerController extends Controller
         ]); 
     }
 
+    
     /**
      * Store a newly created resource in storage.
      *
