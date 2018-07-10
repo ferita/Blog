@@ -8,6 +8,9 @@ use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\OrderProduct;
+use Carbon\Carbon;
+
 
 class OrderController extends Controller 
 
@@ -24,6 +27,27 @@ class OrderController extends Controller
         ]); 
 	}
 
+    public function show($id)
+    {
+        $this->authorize('view', Order::class);
+        $order = Order::findOrFail($id);
+        $products = $order->products;
+        $customer = Customer::findOrFail($order->customer_id);
+        $user = User::where('id', $customer->user_id)->first();
+        $email = $user->email;
+
+        return view('admin.layouts.primary-reverse', [
+            'page' => 'admin.parts.order_show',
+            'order' => $order,
+            'products' => $products,
+            'customer' => $customer,
+            'email' => $email,
+            'is_paid' => $order->is_paid,
+            'is_shipped' => $order->is_shipped,
+            'is_active' => $order->is_active,
+        ]); 
+    }
+
 	/**
      * Show the form for creating a new resource.
      *
@@ -32,12 +56,12 @@ class OrderController extends Controller
     public function create()
     {   
         $this->authorize('create', Order::class);
-        $customers = Customer::all();
-        $products = Product::all();
+       
         return view('admin.layouts.primary-reverse', [
             'page' => 'admin.parts.order_create',
-            'customers' => $customers,
-            'products' => $products
+            'users' => User::all(),
+            'customers' => Customer::all(),
+            'products' => Product::all()
         ]); 
     }
 
@@ -50,18 +74,60 @@ class OrderController extends Controller
     public function store(Request $request)
     {	
         $this->authorize('create', Order::class);
-        $user = User::where('email', $request->email)->firstOrFail();
-        $customer = Customer::where('user_id', $user->id)->firstOrFail();
+        
+        $this->validate($request, [
+            'name' => 'required|max:32|min:3',
+            'surname' => 'required|max:32|min:2', 
+            'email' => 'required|email',  
+            'shipdate' => 'required|date|after:today',
+            
+        ]); 
+    
+            $user = User::where('email', $request->email)->firstOrFail();
+            $customer = $user->customer;
+       
+        if (!$customer) {
+            $customer = Customer::create([
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'phone' => $request->phone,
+            ]);
+        } else {
+             if ($request->phone !== null) {
+                $customer->phone = $request->phone;
+                $customer->save();
+            }
+        }
+        $products_id =  $request->products;
+        $order_amount = 0;
+      
+        foreach ($products_id as $product_id) {
+            $price = Product::find($product_id)->price;
+            $order_amount += $price;
+        } 
+
         $order = Order::create([
             'customer_id' => $customer->id,
             'address' => $request->address,
             'shipdate' => $request->shipdate,
-            'order_amount' => $request->amount,
+            'order_amount' => $order_amount,
             'is_paid' => $request->is_paid,
             'is_shipped' => $request->is_shipped,
             'is_active' => $request->is_active,
         ]);
-      
+       
+
+        // Заполняем таблицу order_product
+
+        foreach ($products_id as $product_id) {
+            OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $product_id,
+                'quantity' => 1, 
+            ]);
+        }
+
     	return redirect()->route('admin.orders');
     }
 
@@ -82,6 +148,9 @@ class OrderController extends Controller
             'order' => $order,
             'customer' => $customer,
             'email' => $email,
+            'is_paid' => $order->is_paid,
+            'is_shipped' => $order->is_shipped,
+            'is_active' => $order->is_active,
         ]); 
 	}
 

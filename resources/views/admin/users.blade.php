@@ -14,7 +14,6 @@
                 <th>Статус</th>
                 @can('update', App\Models\User::class)
                     <th>Редактировать</th>
-                   <!--  <th>Забанить</th> -->
                     <th>Удалить</th>
                 @endcan
             </tr>
@@ -26,7 +25,7 @@
                     <td> {{ $user->id }} </td>
                     <td> {{ $user->name }} </td>
                     <td> {{ $user->email }} </td>
-                    <td> {{ $user->created_at }} </td>
+                    <td> {{ \Carbon\Carbon::parse($user->created_at)->format('d-m-Y H:i') }} </td>
                     <td> @switch($user->status)
                             @case(1)
                                 пользователь
@@ -46,8 +45,7 @@
                     </td>
                     @can('update', App\Models\User::class)
                         <td> <a href="admin/users/edit/{{$user->id}}">Редактировать</a></td>
-                       <!--  <td> <a href="admin/users/ban/{{$user->id}}">Забанить</a></td> -->
-                        <td> <a href="admin/users/delete/{{$user->id}}">Удалить</a></td>
+                        <td> <a href="admin/users/delete/{{$user->id}}" onclick="return confirm('Вы уверены?');">Удалить</a></td>
                     @endcan
                 </tr>
             @empty

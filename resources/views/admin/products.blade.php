@@ -18,17 +18,13 @@
             </tr>
             </thead>
 			<tbody>
-			
+
 			@forelse($products as $product)
 
-                 @php 
-                    $productModel = DB::table('products')->get()
-                        ->where('id', $product->id)
-                        ->first();
+                @php 
+                    $productModel = App\Models\Product::find($product->id);
                     $categoryId = $productModel->category_id;
-                    $category = DB::table('categories')
-                        ->where('id', $categoryId)
-                        ->first();
+                    $category = App\Models\Category::find($categoryId);
                     $categoryName = $category->name;
                 @endphp
 			 
@@ -42,7 +38,7 @@
                     <td> {{ $product->price }} </td>
                     <td> {{ $product->is_active ? 'да' : 'нет' }} </td>
                     <td> <a href="admin/products/edit/{{$product->id}}">Редактировать</a></td>
-                    <td> <a href="admin/products/delete/{{$product->id}}">Удалить</a></td>
+                    <td> <a href="admin/products/delete/{{$product->id}}" onclick="return confirm('Вы уверены?');">Удалить</a></td>
                 </tr>
             @empty
             	Список продукции пуст

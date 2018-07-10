@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index() 
     {
-        $products = DB::table('products')->simplePaginate(6);
+        $products = DB::table('products')->where('is_active', '1')->simplePaginate(6);
 
         $categories = Category::all();
 
@@ -25,16 +25,17 @@ class ProductController extends Controller
         ]);
     }
 
-    public function byCategory($id)
+    public function byCategory($slug)
     {
         $categories = Category::all();
         try {
-            $category = Category::where('id', $id)
+            $category = Category::where('slug', $slug)
                 ->firstOrFail();
         } catch (\Exception $e) {
             abort(404);
         }
         $products = $category->products()
+            ->where('is_active', '1')
             ->orderBy('id', 'ASC')
             ->simplePaginate(6);
 

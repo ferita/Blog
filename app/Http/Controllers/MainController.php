@@ -48,10 +48,10 @@ class MainController extends Controller
     	return $this->myCounter->getValue();
     }
 
-    public function about()
+    public function contacts()
     {
-    	return view('client.layouts.primary', [
-    		'page' => 'pages.about']);
+    	return view('client.layouts.secondary', [
+    		'page' => 'pages.contacts']);
     }
    
     public function search_results()
@@ -75,7 +75,7 @@ class MainController extends Controller
     	$categories = Category::all();
         return view('client.layouts.primary', [
             'page' => 'pages.feedback',
-            'title' => 'Написать мне',
+            'title' => 'Обратная связь',
             'activeMenu' => 'feedback',
             'categories' => $categories
         ]);
@@ -105,7 +105,7 @@ class MainController extends Controller
         //     ->send(new FeedbackMail($request->all()));
         return view('client.layouts.primary', [
             'page' => 'parts.blank',
-            'title' => 'Сообщение отправлено!',
+            'title' => 'Сообщение отправлено.',
             'content' => 'Спасибо за ваше сообщение!',
             'link' => '<a href="javascript:history.back()">Вернуться назад</a>',
             'activeMenu' => 'feedback',

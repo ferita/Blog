@@ -41,7 +41,7 @@ class LoginController extends Controller
                return redirect()->route('admin.welcome')->withInput();
             }
             if (Auth::user()->status != 0) {
-                return redirect()->route('products.index');
+                return redirect()->intended();
             }
         }
        

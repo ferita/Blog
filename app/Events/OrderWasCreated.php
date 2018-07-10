@@ -15,15 +15,17 @@ class OrderWasCreated
     use Dispatchable, InteractsWithSockets, SerializesModels;
     protected $inputData;
     protected $order_id;
+    protected $order;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($inputData, $order_id)
+    public function __construct($inputData, $order_id, $order)
     {
         $this->inputData = $inputData;
         $this->order_id = $order_id;
+        $this->order = $order;
     }
 
     public function getInputData()
@@ -34,5 +36,9 @@ class OrderWasCreated
     public function getOrderId()
     {
         return $this->order_id;
+    }
+    public function getOrder()
+    {
+        return $this->order;
     }
 }

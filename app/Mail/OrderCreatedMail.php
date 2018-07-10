@@ -12,16 +12,18 @@ class OrderCreatedMail extends Mailable
     use Queueable, SerializesModels;
     protected $input;
     protected $order_id;
+    protected $order;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($input, $order_id)
+    public function __construct($input, $order_id, $order)
     {
         $this->input = $input;
         $this->order_id = $order_id;
+        $this->order = $order;
     }
 
     /**
@@ -32,9 +34,8 @@ class OrderCreatedMail extends Mailable
     public function build()
     {
          return $this->view('mails.order_created')
-           // ->from(['address' => $this->input['email']])
             ->from(['address' => 'thecake.manager@yandex.ru'])
-            ->with(['data' => $this->input, 'order_id' => $this->order_id])
+            ->with(['data' => $this->input, 'order_id' => $this->order_id, 'order' => $this->order])
             ->subject('TheCake - поступил новый заказ');
            // ->attach(base_path('invoice'));
     }

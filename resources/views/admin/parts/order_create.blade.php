@@ -2,60 +2,103 @@
     <div class="row">
         <div class="col-xs-10  col-xs-offset-1">
         	<h3>Создание заказа</h3>
-        	<div class="edit">
+        	<div class="order">
 	        	<form class="form-horizontal" method="post">
 	        		{{ csrf_field() }}
-	        		   
+	        		
 		            <div class="form-group">
-	                    <label for="inputClient" class="col-sm-3 control-label">Клиент</label>
-	                    <div class="col-sm-9">
-	                    <select id="inputClient" name="client">
-	                    	@foreach ($customers as $customer)
-			                	<option value="{{ $customer->id }}">{{ $customer->name . ' ' . $customer->surname}}</option>
+		                    <label for="inputName" class="col-sm-3 control-label">Имя*</label>
+		                    <div class="col-sm-9">
+		                    	<input type="text" class = "{{ $errors->has('name') ? 'redBorder' : '' }}" id="inputName" name="name" placeholder='Не менее трех символов*' value="{{ old('name', '') }}">
+			                	@if ($errors->has('name'))
+			                		<div class="inputError">
+			                			{{ $errors->first('name') }}
+			                		</div>
+			                	@endif
+			                </div>
+			            </div>
+			            <div class="form-group">
+		                    <label for="inputSurname" class="col-sm-3 control-label">Фамилия*</label>
+		                    <div class="col-sm-9">
+		                    	<input type="text" class = "{{ $errors->has('surname') ? 'redBorder' : '' }}" id="inputSurname" name="surname" placeholder='Не менее трех символов*' value="{{ old('surname', '') }}">
+			                	@if ($errors->has('surname'))
+			                		<div class="inputError">
+			                			{{ $errors->first('surname') }}
+			                		</div>
+			                	@endif
+			                </div>
+			            </div>
+					
+				        <div class="form-group">
+	                   		<label for="inputEmail" class="col-sm-3 control-label">E-mail*</label>
+	                    	<div class="col-sm-9">
+	                    		<div>
+	                    		<select id="inputEmail" name="email" class="{{ $errors->has('email') ? 'redBorder' : '' }}">
+			                    	@foreach ($users as $user)
+					                	<option value="{{ $user->email }}" name = "email">{{old('email', "$user->email")}}</option>
+					                @endforeach
+				                </select>
+				                </div>
+			                </div>
+			                @if ($errors->has('email'))
+		                		<div class="inputError">
+		                			{{ $errors->first('email') }}
+		                		</div>
+			                @endif
+			            </div>
+		           
+		           	<div class="form-group">
+	                    <label for="inputProducts" class="col-sm-3 control-label">Позиции*</label>
+	                    <div class="col-sm-9 multiselect">
+	                    <select id="inputProducts" name="products[]" class="{{ $errors->has('products[]') ? 'redBorder' : ''}}" size="10" multiple>
+	                    	@foreach ($products as $product)
+			                	<option value="{{ $product->id }}" name="products[]">{{ $product->name . ' - ' . $product->price . ' руб.'}}</option>
 			                @endforeach
 		                </select>
+		                @if ($errors->has('products[]'))
+	                		<div class="inputError">
+	                			{{ $errors->first('products[]') }}
+	                			{{ $product->id }}
+	                		</div>
+		                @endif
 		            	</div>
-		            </div>
-		            <div class="form-group">
+		           	</div>
+		           	<!-- <div class="form-group">
+	                    <label for="inputAmount" class="col-sm-3 control-label">Сумма заказа*</label>
+	                    <div class="col-sm-9">
+		                	<input type="text" id="inputAmount" name="amount"  class="{{ $errors->has('amount') ? 'redBorder' : ''}}" value="{{ old('amount', '') }}">
+		                	@if ($errors->has('amount'))
+		                		<div class="inputError">
+		                			{{ $errors->first('amount') }}
+		                		</div>
+		                	@endif
+		                </div>
+		           	</div> -->
+		           	<div class="form-group">
+	                    <label for="inputShipdate" class="col-sm-3 control-label">К какой дате испечь?*</label>
+	                    <div class="col-sm-9">
+		                	<input type="date" id="inputShipdate" name="shipdate" class="{{ $errors->has('shipdate') ? 'redBorder' : ''}}" value="{{ old('shipdate', '') }}">
+		                	@if ($errors->has('shipdate'))
+		                		<div class="inputError">
+		                			{{ $errors->first('shipdate') }}
+		                		</div>
+		                	@endif
+		                </div>
+		           	</div>
+		           	<div class="form-group">
 	                    <label for="inputPhone" class="col-sm-3 control-label">Телефон</label>
 	                    <div class="col-sm-9">
 	                    	<input type="text" id="inputPhone" name="phone" value="{{ old('phone', '') }}">
 		                </div>
 		            </div>
-		            <div class="form-group">
-                   		<label for="inputEmail" class="col-sm-3 control-label">E-mail</label>
-                    	<div class="col-sm-9">
-                    		<input type="email" id="inputEmail" name="email" value="{{ old('email', '') }}">
-		                </div>
-		            </div>
+		           
 		           	<div class="form-group">
 	                    <label for="inputAddress" class="col-sm-3 control-label">Адрес доставки</label>
 	                    <div class="col-sm-9">
-		                	<input type="text" id="inputAddress" name="address" value="{{ old('address', '') }}">
+		                	<input type="text" id="inputAddress" name="address" value="{{ old('address', '') }}" placeholder="Если доставка не нужна, оставьте пустым" >
 		                </div>
 		           	</div>
-		           	<div class="form-group">
-	                    <label for="inputAmount" class="col-sm-3 control-label">Сумма заказа</label>
-	                    <div class="col-sm-9">
-		                	<input type="text" id="inputAmount" name="amount" value="{{ old('amount', '') }}">
-		                </div>
-		           	</div>
-		           	<div class="form-group">
-	                    <label for="inputProducts" class="col-sm-3 control-label">Позиции</label>
-	                    <div class="col-sm-9">
-	                    <select id="inputProducts" name="products[]" multiple>
-	                    	@foreach ($products as $product)
-			                	<option value="{{ $product->id }}">{{ $product->name . ' - ' . $product->price . ' руб.'}}</option>
-			                @endforeach
-		                </select>
-		            	</div>
-		           	</div>
-		           	<div class="form-group">
-	                    <label for="inputShipdate" class="col-sm-3 control-label">Дата доставки</label>
-	                    <div class="col-sm-9">
-		                	<input type="date" id="inputShipdate" name="shipdate" value="{{ old('shipdate', '') }}">
-		                </div>
-		           	</div>
+		           
 		           	<div class="form-group">
 	                    <label for="inputPaid" class="col-sm-3 control-label">Оплачен?</label>
 	                    <div class="col-sm-9">

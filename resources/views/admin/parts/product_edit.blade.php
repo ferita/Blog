@@ -1,7 +1,7 @@
 <div class="edit boxed push-down-45">
     <div class="row">
         <div class="col-xs-10  col-xs-offset-1">
-        	<h3>Создание / Редактирование товара </h3>
+        	<h3>Редактирование товара </h3>
         	<div class="edit">
 	        	<form class="form-horizontal" method="post">
 	        		{{ csrf_field() }}
@@ -40,10 +40,12 @@
 	                    <label for="inputCategory" class="col-sm-3 control-label">Категория</label>
 	                    <div class="col-sm-9">
 	                    	<select id="inputCategory" name="category_id">
-			                	<option value="1">Торты</option>
-			                    <option value="2">Пирожные</option>
-			                    <option value="3">Пироги</option>
-			                    <option value="4">Десерты</option>
+	                    		@foreach ($categories as $category)
+			                		<option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
+			                	@endforeach
+			                    <!-- <option value="2" {{ $product->category_id == 2 ? 'selected' : ''}}>Пирожные</option>
+			                    <option value="3" {{ $product->category_id == 3 ? 'selected' : ''}}>Пироги</option>
+			                    <option value="4" {{ $product->category_id == 4 ? 'selected' : ''}}>Десерты</option> -->
 		                	</select>
 		                </div>
 		           	</div>
@@ -51,8 +53,8 @@
 	                    <label for="is_active" class="col-sm-3 control-label">Активно?</label>
 	                    <div class="col-sm-9">
 	                    	<select id="is_active" name="is_active">
-			                	<option value="1">Да </option>
-			                    <option value="0">Нет</option>
+			                	<option value="1" {{ $is_active == 1 ? 'selected' : ''}}>Да </option>
+			                    <option value="0" {{ $is_active == 0 ? 'selected' : ''}}>Нет</option>
 			                </select>
 		                </div>
 		           	</div>

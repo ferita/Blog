@@ -5,12 +5,13 @@
 		<table class="table  table-hover table-admin">
             <thead>
             <tr class="su-even">
-                <th>ID покупателя</th>
+                <th>ID покуп.</th>
                 <th>Имя</th>
                 <th>Фамилия</th>
-                <th>Дата рождения</th>
                 <th>Email</th>
                 <th>Телефон</th>
+                <th>Заказы</th>
+                <th>Дата рождения</th>
                 <th>Дата регистрации</th>
                 <th>Редактировать</th>
                 <th>Удалить</th>
@@ -31,14 +32,16 @@
     			  
                     <tr>
                         <td> {{ $customer->id or ''}} </td>
-                        <td> {{ $customer->name or ''}} </td>
+                        <td> <a href="/admin/users/edit/{{$customer->user_id}}">{{ $customer->name or ''}}</a> </td>
                         <td> {{ $customer->surname or ''}} </td>
-                        <td> {{ $customer->birthdate or ''}} </td>
+                        
                         <td> {{ $email or ''}} </td>
                         <td> {{ $customer->phone or ''}} </td>
-                        <td> {{ $customer->created_at or '' }} </td>
+                        <td> <a href="admin/customers/ordersByCustomer/{{$customer->id}}">Заказы</a></td>
+                        <td> {{ \Carbon\Carbon::parse($customer->birthdate)->format('d-m-Y')}} </td>
+                        <td> {{ \Carbon\Carbon::parse($customer->created_at)->format('d-m-Y H:i') }} </td>
                         <td> <a href="admin/customers/edit/{{$customer->id}}">Редактировать</a></td>
-                        <td> <a href="admin/customers/delete/{{$customer->id}}">Удалить</a></td>
+                        <td> <a href="admin/customers/delete/{{$customer->id}}" onclick="return confirm('Вы уверены?');">Удалить</a></td>
                     </tr>
                 @empty
                 	Нет покупателей

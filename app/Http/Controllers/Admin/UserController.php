@@ -32,7 +32,7 @@ class UserController extends Controller
         $this->authorize('create', User::class);
 
         return view('admin.layouts.primary-reverse', [
-            'page' => 'admin.parts.user_edit',
+            'page' => 'admin.parts.user_create',
         ]); 
     }
 
@@ -45,11 +45,19 @@ class UserController extends Controller
     public function store(Request $request)
     {	
         $this->authorize('create', User::class);
-    	$user = User::create([
+     
+    	/* $user = User::create([
     		'name' => $request->name,
-       		'email' => $request->email,
-        	'password' => bcrypt($request->password)
-    	]);
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'status' => $request->status,
+    	]); */
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->status = $request->status;
+        $user->save();
 
         return redirect()->route('admin.users');
     }
@@ -68,6 +76,8 @@ class UserController extends Controller
             'user' => $user,
             'name' => $user->name,
             'email' => $user->email,
+            'password' => $user->password,
+            'status' => $user->status
         ]); 
 	}
 
@@ -77,9 +87,13 @@ class UserController extends Controller
         $user = User::findOrFail($id); 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->password = bcrypt($request->password);
         $user->status = $request->status;
         $user->save();
 
+        // User::findOrFail($id)
+        //     ->update($request->except(['_token']));
+            
         return redirect()->route('admin.users');
     }
 

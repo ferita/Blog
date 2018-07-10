@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\COntrollers\Controller;
 
@@ -31,7 +32,8 @@ class ProductController extends Controller
     {
         $this->authorize('create', Product::class);
         return view('admin.layouts.primary-reverse', [
-            'page' => 'admin.parts.product_edit',
+            'page' => 'admin.parts.product_create',
+            'categories' => Category::all(),
         ]); 
     }
 
@@ -68,11 +70,13 @@ class ProductController extends Controller
 		
 		return view('admin.layouts.primary-reverse', [
             'page' => 'admin.parts.product_edit',
+            'categories' => Category::all(),
             'product' => $product,
             'name' => $product->name,
             'slug' => $product->slug,
             'description' => $product->description,
             'price' => $product->price,
+            'is_active'=> $product->is_active
         ]); 
 	}
 

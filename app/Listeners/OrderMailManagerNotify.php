@@ -30,8 +30,9 @@ class OrderMailManagerNotify
     {
         $data = $event->getInputData();
         $order_id = $event->getOrderId();
+        $order = $event->getOrder();
 
        Mail::to(env('MAIL_TO'))
-            ->send(new OrderCreatedMail($data, $order_id));
+            ->send(new OrderCreatedMail($data, $order_id, $order));
     }
 }

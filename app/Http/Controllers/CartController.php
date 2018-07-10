@@ -87,7 +87,8 @@ class CartController extends Controller
         Cart::update($id, $request->quantity);
 
        // session()->flash('success_message', 'Количество товаров изменилось');
-        return response()->json(['success' => true]);
+        return view('parts.cart-table') . view('parts.cart-count');
+        //response()->json(['success' => true]);
     }
 
     /**

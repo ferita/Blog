@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-//use App\Models\Cart;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderCreatedMail;
 use App\Events\OrderWasCreated;
 use App\Models\Order;
 use App\Models\Customer;
+use App\Models\OrderProduct;
 
 class OrderController extends Controller
 {
@@ -23,22 +23,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $customer = Customer::where('user_id', $user->id)->firstOrFail();
+        // $user = Auth::user();
+        // $customer = Customer::where('user_id', $user->id)->firstOrFail();
         return view('client.layouts.secondary', [
             'page' => 'pages.order',
-            'customer'=> $customer
+         //   'customer'=> $customer
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -49,22 +39,51 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $customer = Customer::where('user_id', Auth::user()->id)->first();
+
+        if(!$customer) {
+            $this->validate($request, [
+                'name' => 'required|max:32|min:3',
+                'surname' => 'required|max:32|min:2'            
+            ]);
+            $customer = Customer::create([
+                'user_id' => Auth::user()->id,
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'phone' => $request->phone,
+            ]);
+        }
         $this->validate($request, [
-            'email' => 'required|email',  
-            'name' => 'required|max:32|min:3',
             'shipdate' => 'required|date|after:today'
-        ]);  
+        ]);
+        if ($request->phone !== null) {
+            $customer->phone = $request->phone;
+            $customer->save();
+        }
         $order = Order::create([
-            'customer_id' => $request->customer_id,
+            'customer_id' => $customer->id,
             'order_amount' => Cart::total(),
             'shipdate' => $request->shipdate,
             'address' => $request->address,
         ]);
         $order_id = $order->id;
 
+        // Mail::to($request->email)->send(new OrderCreatedMail($request->all(), $order_id, $order)); 
+        
+        // Заполняем таблицу order_product
+
+        foreach (Cart::content() as $item) {
+            OrderProduct::create([
+                'order_id' => $order_id,
+                'product_id' => $item->model->id,
+                'quantity' => $item->qty
+            ]);
+        }
+
         event(
-            new OrderWasCreated($request->all(), $order_id)
+            new OrderWasCreated($request->all(), $order_id, $order)
         );
+        Cart::destroy();
         return view('client.layouts.secondary', [
             'page' => 'parts.blank',
             'title' => 'Заказ подтвержден',
@@ -82,7 +101,6 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-       // $order = Order::firstOrFail($id);
 
     }
 
@@ -106,10 +124,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Cart::update($id, $request->quantity);
-
-       // session()->flash('success_message', 'Количество товаров изменилось');
-        return response()->json(['success' => true]);
+        
     }
 
     /**
@@ -120,8 +135,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        Cart::remove($id);
-
-        return back()->with('success_message', 'Товар удален из корзины');
+       
     }
 }

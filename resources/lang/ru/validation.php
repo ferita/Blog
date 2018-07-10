@@ -13,13 +13,13 @@ return [
     */
     'accepted'             => 'Вы должны принять :attribute.',
     'active_url'           => 'Поле :attribute содержит недействительный URL.',
-    'after'                => 'В поле :attribute должна быть дата после :date.',
+    'after'                => 'В поле :attribute должна быть указана дата после текущей',
     'after_or_equal'       => 'The :attribute must be a date after or equal to :date.',
     'alpha'                => 'Поле :attribute может содержать только буквы.',
     'alpha_dash'           => 'Поле :attribute может содержать только буквы, цифры и дефис.',
     'alpha_num'            => 'Поле :attribute может содержать только буквы и цифры.',
     'array'                => 'Поле :attribute должно быть массивом.',
-    'before'               => 'В поле :attribute должна быть дата до :date.',
+    'before'               => 'В поле :attribute должна быть дата до текущей',
     'before_or_equal'      => 'The :attribute must be a date before or equal to :date.',
     'between'              => [
         'numeric' => 'Поле :attribute должно быть между :min и :max.',
@@ -110,9 +110,15 @@ return [
     */
     'attributes' => [
         'name' => '"Имя/Логин"',
+        'surname' => '"Фамилия"',
         'email' => '"E-mail"',
         'password' => '"Пароль"',
         'password2' => '"Подтверждение пароля"',
-        'phone' => 'Телефон'
+        'phone' => '"Телефон"',
+        'shipdate' => '"Дата"',
+        'birthdate' => '"Дата рождения"',
+        'amount' => '"Количество"',
+        'order_amount' => '"Количество"'
+       
     ],
 ];
