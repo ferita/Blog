@@ -3,7 +3,7 @@
         <div class="col-xs-10  col-xs-offset-1">
         	<h3>Редактирование товара </h3>
         	<div class="edit">
-	        	<form class="form-horizontal" method="post">
+	        	<form  enctype="multipart/form-data" class="form-horizontal" method="post">
 	        		{{ csrf_field() }}
 	        				           
 		            <div class="form-group">
@@ -27,7 +27,7 @@
 		           	<div class="form-group">
 	                    <label for="inputImage" class="col-sm-3 control-label">Фото </label>
 	                    <div class="col-sm-9">
-		                	<input type="file" id="inputImage" name="image" value="{{ $image or '' }}" >
+		                	<input type="file" id="inputImage" name="file" value="{{ $image or '' }}" >
 		                </div>
 		           	</div>
 		           	<div class="form-group">
@@ -43,10 +43,7 @@
 	                    		@foreach ($categories as $category)
 			                		<option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
 			                	@endforeach
-			                    <!-- <option value="2" {{ $product->category_id == 2 ? 'selected' : ''}}>Пирожные</option>
-			                    <option value="3" {{ $product->category_id == 3 ? 'selected' : ''}}>Пироги</option>
-			                    <option value="4" {{ $product->category_id == 4 ? 'selected' : ''}}>Десерты</option> -->
-		                	</select>
+			                </select>
 		                </div>
 		           	</div>
 		           	<div class="form-group">

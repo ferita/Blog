@@ -28,10 +28,10 @@ class OrderMailCustomerNotify
      */
     public function handle(OrderWasCreated $event)
     {
-        // $data = $event->getInputData();
-        // $order_id = $event->getOrderId();
-        // $order = $event->getOrder();
-        // Mail::to($data['customer_email'])
-        //     ->send(new OrderCreatedCustomerMail($data, $order_id, $order));
+        $data = $event->getInputData();
+        $order_id = $event->getOrderId();
+        $order = $event->getOrder();
+        Mail::to($data['customer_email'])
+            ->send(new OrderCreatedCustomerMail($data, $order_id, $order));
     }
 }

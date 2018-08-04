@@ -41,9 +41,9 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAdminRoutes();
 
-        // $this->mapImageRoutes();
+        $this->mapImageRoutes();
 
-        // $this->mapDownloadRoutes();
+        $this->mapDownloadRoutes();
 
         //
     }
@@ -92,5 +92,34 @@ class RouteServiceProvider extends ServiceProvider
              ->group(base_path('routes/admin.php'));
     }
 
+     /**
+     * Define the "images" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapImageRoutes()
+    {
+        Route::middleware('web')
+            ->prefix('/image')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/image.php'));
+    }
+
+    /**
+     * Define the "download" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapDownloadRoutes()
+    {
+        Route::middleware('web')
+            ->prefix('/file')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/file.php'));
+    }
     
 }

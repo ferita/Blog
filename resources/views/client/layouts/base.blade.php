@@ -7,9 +7,12 @@
     <base href="{{ route('site.main.index') }}">
     <link rel="shortcut icon" href="assets/images/favicon_cake.ico">
     <title>{{ $title or 'TheCake - магазин тортов' }}</title>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,400italic|Roboto:400,700,500|Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+   <!--  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,400italic|Roboto:400,700,500|Open+Sans:400,600&subset=latin,cyrillic" rel='stylesheet' type='text/css'> -->
+     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,400italic" rel='stylesheet' type='text/css'>
+     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,500" rel='stylesheet' type='text/css'>
+     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic" rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="assets/css/main.css" />
-   
+    <link rel="stylesheet" href="assets/css/animate.css">
     @section('head_styles')
   <!--   для стилей дочерних страниц -->
     @show

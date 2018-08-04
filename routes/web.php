@@ -71,6 +71,15 @@ Route::post('/lk/profile', 'Cabinet\ServicesController@profileUpdate')
 Route::get('/404', 'MainController@response404')->name('404');
 Route::get('/relations', 'MainController@relations');
 
+/**
+ * Routes for uploads
+ */
+Route::get('/upload', 'UploadController@showForm')
+    ->name('site.main.upload');
+
+Route::post('/upload', 'UploadController@processUpload')
+    ->name('site.main.uploadPost');
+
 
 // Route::group(['prefix'=>'post'], function() {
 // 	Route::get('/', 'MainController@post')

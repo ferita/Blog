@@ -1,7 +1,7 @@
 <div class="widget-author  boxed  push-down-30">
     <div class="widget-author__image-container">
         @if($product->image)
-            <img class="wp-post-image" src="assets/images/products/{{ $product->image }}" alt="Cake image"  width="748" height="324">
+            <img class="wp-post-image" src="/image/fit/770/600/{{$product->image }}.jpg" alt="Cake image">
         @endif
     </div>
     <div class="row">

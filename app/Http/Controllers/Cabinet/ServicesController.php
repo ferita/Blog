@@ -16,12 +16,15 @@ use Carbon\Carbon;
 class ServicesController extends Controller
 {
 	public function index()
-	{
-		$customer =  Auth::user()->customer;
+	{  
+        $orders = [];
+		$customer =  Auth::user()->customer or '';
 		
-		$orders = Order::where('customer_id', $customer->id)
+		if($customer) {
+            $orders = Order::where('customer_id', $customer->id)
 				->orderBy('id', 'DESC')
 				->get();
+        }
 
 		return view('client.layouts.lk-primary-reverse', [
 			'title' => 'TheCake - личный кабинет',
@@ -65,12 +68,17 @@ class ServicesController extends Controller
 
     public function profile()
 	{  
-		$customer =  Auth::user()->customer;
+		$customer =  Auth::user()->customer or '';
 
-		if ($customer === null) {
-			abort(404);
-		}
-
+		// if ($customer === null) {
+		// 	abort(404);
+		// }
+        if ($customer == '') {
+            return view('client.layouts.lk-primary-reverse', [
+            'page' => 'parts.lk-profile-edit',
+            'customer' => $customer,
+            ]); 
+        }
 		return view('client.layouts.lk-primary-reverse', [
             'page' => 'parts.lk-profile-edit',
             'customer' => $customer,
@@ -100,6 +108,4 @@ class ServicesController extends Controller
 
 		return redirect()->route('lk.profile')->with('success_message', "Профиль обновлен");
 	}
-
-
 }

@@ -31,7 +31,7 @@ class OrderCancelledMailNotify
         $data = $event->getInputData();
         $order = $event->getOrder();
 
-       Mail::to(env('MAIL_TO'))
+       Mail::to('doremifasolas@yandex.ru')
             ->send(new OrderCancelledMail($data, $order));
     }
 }

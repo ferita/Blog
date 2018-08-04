@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FeedBackMail extends Mailable
+class FeedbackMail extends Mailable
 {
     use Queueable, SerializesModels;
 

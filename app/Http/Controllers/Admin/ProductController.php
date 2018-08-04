@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\COntrollers\Controller;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\UploadController;
+use App\Classes\Uploader;
+use App\Models\Upload;
 
 class ProductController extends Controller 
 
@@ -43,13 +46,15 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Uploader $uploader, Upload $uploadModel)
     {	
         $this->authorize('create', Product::class);
+        
     	$product = new Product;
     	$product->name = $request->name;
         $product->slug = $request->slug;
         $product->description = $request->description;
+        $product->image = UploadController::processUpload($request, $uploader, $uploadModel);
         $product->category_id = $request->category_id;
         $product->price = $request->price;
         $product->is_active = $request->is_active;
@@ -80,13 +85,14 @@ class ProductController extends Controller
         ]); 
 	}
 
-	public function update (Request $request, $id)
+	public function update (Request $request, $id, Uploader $uploader, Upload $uploadModel)
     {
         $this->authorize('update', Product::class);
         $product = Product::findOrFail($id);
         $product->name = $request->name;
         $product->slug = $request->slug;
         $product->description = $request->description;
+        $product->image = UploadController::processUpload($request, $uploader, $uploadModel);
         $product->category_id = $request->category_id;
         $product->price = $request->price;
  		$product->is_active = $request->is_active;

@@ -35,9 +35,9 @@ class SignupController extends Controller
             Auth::loginUsingId($id, true); // чтобы сразу авторизовать нового пользователя
         }
        	return view('client.layouts.secondary', [
-            'page' => 'pages.welcome',
+            'page' => 'parts.blank',
             'name' => $input['name'],
-            'msg'=> 'Вы успешно зарегистрировались.'
+            'content'=> 'Здравствуйте! Вы успешно зарегистрировались.'
         ]);
     }
 }

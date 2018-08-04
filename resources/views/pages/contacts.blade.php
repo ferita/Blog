@@ -12,7 +12,9 @@
                  
                 <div class="col-xs-12  push-down-30">
                     
-                    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A96a13c6f2039fb60ff9e86ffbd18ac822654a010b937e0f042673f31edb85fe4&amp;width=778&amp;height=477&amp;lang=ru_RU&amp;scroll=true"></script>
+                    <div class="map">
+                        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A96a13c6f2039fb60ff9e86ffbd18ac822654a010b937e0f042673f31edb85fe4&amp;width=778&amp;height=477&amp;lang=ru_RU&amp;scroll=true"></script>
+                    </div>
 
 
                     <blockquote>

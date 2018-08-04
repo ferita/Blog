@@ -8,6 +8,7 @@
                 </div>
             @endif
         </div>
+        @if ($orders !== [])
 		<table class="table  table-hover table-admin">
             <thead>
                 <tr class="su-even">
@@ -22,9 +23,9 @@
                 </tr>
             </thead>
 			<tbody>
-               
+        @endif
     			@forelse($orders as $order)
-                   	  
+                   	 
                     <tr class="{{ $order->is_active === 1 ? 'alert-success' : ''}}">
                         <td> {{ $order->id or ''}} </td>
                         <td> {{ \Carbon\Carbon::parse($order->created_at)->format('d-m-Y') }} </td>
@@ -52,7 +53,7 @@
                         @endif
                     </tr>
                 @empty
-                	Нет заказов
+                	<p>Список заказов пуст</p><br>
                 @endforelse
             </tbody>
         </table>
