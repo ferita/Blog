@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Product;
 use App\Includes\Classes\MyCounter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -70,19 +71,27 @@ class MainController extends Controller
      	return response('<h1>404 Not Found</h1>', 404);
     }
 
-    public function feedback()
+   public function feedback()
     {
     	$categories = Category::all();
+        $products = Product::orderby('id', 'DESC')
+                ->take(3)
+                ->get();
+
         return view('client.layouts.primary', [
             'page' => 'pages.feedback',
             'title' => 'Обратная связь',
             'activeMenu' => 'feedback',
-            'categories' => $categories
+            'categories' => $categories,
+            'products'=> $products
         ]);
     }
     public function feedbackPost(Request $request)
     {
     	$categories = Category::all();
+        $products = Product::orderby('id', 'DESC')
+                ->take(3)
+                ->get();
         $this->validate($request, [
             'name' => 'required|max:50|min:2',
             'email' => 'required|max:255|email',
@@ -98,7 +107,7 @@ class MainController extends Controller
         // 	$message->from('novinatt@yandex.ru');
         // 	$message->to('doremifasolas@yandex.ru');
         // 	//$message->setContentType('text/html');
-        // 	$message->subject('Письмо с блога');
+        // 	$message->subject('Письмо с сайта');
         // });
         // Mail::to(env('MAIL_TO')) // может принимать User::find($id) или нескольких
         // 	->cc('novinatt@yandex.ru') // копия кому-либо
@@ -109,39 +118,13 @@ class MainController extends Controller
             'content' => 'Спасибо за ваше сообщение!',
             'link' => '<a href="javascript:history.back()">Вернуться назад</a>',
             'activeMenu' => 'feedback',
-            'categories' => $categories
+            'categories' => $categories,
+            'products'=> $products
         ]);
     }
 
     public function db()
     {
-       /* $users = DB::table('users')->get()
-            ->where('id', '2')
-            ->Where('name', 'Vasiliy');
-            ->select('name', 'email as user_email')
-            ->get(['name', 'email']);
-            ->count();
-            ->exists();
-        foreach ($users as $user) {
-             echo $user->name . ' - ' .  $user->email, '<br>';
-   		}
-        DB::table('users')
-            ->where('id', 2)
-            ->update([
-                'name' => 'Ivan Ivanov',
-                'password' => 999999
-            ]);
-	    debug($users);
-	    dump($users);
-       */
+      
     }
-
-   
-   /*public function response1() {
-    	return response('<h1>404 Not Found</h1>', 404)
-	    	->header('Content-Type', 'text/plain')
-	 		->header('X-Powered-By', 'Laravel 5.6')
-			->cookie('mycookie', 'val', 60*24);;
-    }
-    */
 }

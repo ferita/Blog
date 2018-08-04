@@ -32,7 +32,7 @@ class OrderMailManagerNotify
         $order_id = $event->getOrderId();
         $order = $event->getOrder();
 
-       Mail::to(env('MAIL_TO'))
+      Mail::to('doremifasolas@yandex.ru')
             ->send(new OrderCreatedMail($data, $order_id, $order));
     }
 }

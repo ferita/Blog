@@ -50,3 +50,6 @@ Route::get('orders/details/{id}', 'Admin\OrderController@show')->name('order.sho
 
 Route::get('settings', 'Admin\SettingController@edit')->name('admin.settings');
 Route::post('settings', 'Admin\SettingController@update');
+
+// Route::post('products/create', 'UploadController@processUpload')
+//     ->name('site.main.uploadPost');  

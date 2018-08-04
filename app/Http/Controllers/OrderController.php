@@ -68,6 +68,7 @@ class OrderController extends Controller
         ]);
         $order_id = $order->id;
 
+
         // Mail::to($request->email)->send(new OrderCreatedMail($request->all(), $order_id, $order)); 
         
         // Заполняем таблицу order_product
@@ -80,9 +81,9 @@ class OrderController extends Controller
             ]);
         }
 
-        event(
-            new OrderWasCreated($request->all(), $order_id, $order)
-        );
+       event(
+           new OrderWasCreated($request->all(), $order_id, $order)
+       );
         Cart::destroy();
         return view('client.layouts.secondary', [
             'page' => 'parts.blank',

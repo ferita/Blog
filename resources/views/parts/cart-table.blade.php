@@ -12,7 +12,7 @@
             <tr>
                 <td class="items">
                     <div class="image">
-                       <a href="{{ route('productOne', $item->model->id) }}"><img src="{{ asset('assets/images/products/min/'.$item->model->image) }}" alt="Cake photo"></a>
+                       <a href="{{ route('productOne', $item->model->id) }}"><img src="/image/fit/170/135/{{$item->model->image}}.jpg" alt="Cake photo"></a>
                     </div>
                     <h3><a href="{{ route('productOne', $item->model->id) }}">{{ $item->model->name }}</a></h3>
                     <p>{{ $item->model->description }}</p>

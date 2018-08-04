@@ -20,7 +20,7 @@ class FeedbackMailNotify
     {
        $data = $event->getInputData();
 
-       Mail::to(env('MAIL_TO'))
+       Mail::to('doremifasolas@yandex.ru')
             ->send(new FeedbackMail($data));
     }
 }

@@ -27,7 +27,7 @@
 		           	<div class="form-group">
 	                    <label for="inputImage" class="col-sm-3 control-label">Фото </label>
 	                    <div class="col-sm-9">
-		                	<input type="file" id="inputImage" name="image" value="{{ $image or '' }}" >
+		                	<input type="file" id="inputImage" name="file" value="{{ $image or '' }}" >
 		                </div>
 		           	</div>
 		           	<div class="form-group">

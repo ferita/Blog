@@ -5732,15 +5732,28 @@ body.search-mode .search-panel {
 
 .widget-cake__image-container {
     position: relative;
-    margin-bottom: 45px
+    margin-bottom: 15px
 }
 
-@media (min-width: 768px) {
+
+@media (max-width: 365px) {
     .widget-cake__image-container {
         margin-bottom:5px
     }
+	.products div.widget-cake__avatar-pic{
+    overflow: hidden;
+    height: 180px;
 }
-
+}
+@media (max-width: 768px) {
+    .widget-cake__image-container {
+        margin-bottom:5px
+    }
+	div.widget-cake__avatar-pic{
+    overflow: hidden;
+    height: 250px;
+}
+}
 .widget-cake__avatar {
     position: absolute;
     left: 50%;
@@ -5754,13 +5767,26 @@ body.search-mode .search-panel {
 
 .widget-cake__avatar-pic{
     overflow: hidden;
-    height: 275px;
+    height: 230px;
 }
 
 .widget-cake__avatar-pic img {
-    width: 100%;
-    height: auto;
-    margin-top: -5%
+	opacity: 0.97;
+	width: 100%;
+	height: auto;
+	-webkit-transform: scale(1.14);
+	        transform: scale(1.14);
+	-webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+	transition: opacity 0.5s, -webkit-transform 0.5s;
+	transition: transform 0.5s, opacity 0.5s;
+	transition: transform 0.5s, opacity 0.5s, -webkit-transform 0.5s;
+	margin-top: -5%
+}
+
+.widget-cake__avatar-pic img:hover {
+	opacity: 1;
+	-webkit-transform: scale(1.01);
+	        transform: scale(1.01);
 }
 
 .widget-cake__content {
@@ -6257,7 +6283,7 @@ ul.pagination {
 
 @media (min-width: 768px) {
     .meta {
-        margin-bottom:60px
+        margin-bottom:10px
     }
 }
 
@@ -7207,6 +7233,8 @@ h1,h2,h3,h4,h5 {
 
 .post-content--front-page p {
     font-size: 15px;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #353533;
 }
 
 .comment-icon-counter {
@@ -7394,7 +7422,95 @@ h1,h2,h3,h4,h5 {
 	
 	color: #7a81a2;
 }
+@media (max-width: 768px) {
 
+.products .widget-cake__avatar-pic img {
+    width: 80%;
+    height: auto;
+    margin-top: 25px;
+}
+}
 .details {
 	text-align: left;
 	font-size: 18px;
+}
+
+.description {
+	height: 60px;
+}
+
+.map {
+	max-width: 100%;
+	overflow: hidden;
+}
+.about_us {
+text-align: center;
+margin-top: 20px;
+}
+
+h3.about_us {
+color: #656567;
+}
+
+.animated {
+  -webkit-animation-duration: 2.3s;
+  -o-animation-duration: 2.3s;
+  -moz-animation-duration: 2.3s;
+  animation-duration: 2.3s;
+ }
+
+.buy-cake .inner-content
+{
+	position: relative;
+	 
+}
+
+.buy-cake .inner-content img
+{
+	width: 100%;
+	height: 100%
+}
+
+.buy-cake .inner-content .overlay-content
+{
+	position: absolute;
+	top: 100%;
+	left: 0px;
+	text-align: center;
+	background: rgba(0,0,0,0.8);
+	width: 100%;
+	height: 100%;
+	transition: all 0.3s ease-in;
+	-webkit-transition: all 0.3s ease-in;
+	-moz-transition: all 0.3s ease-in;
+	-o-transition: all 0.3s ease-in;
+	
+}
+
+.buy-cake .inner-content .overlay-content h3,.buy-cake .inner-content .overlay-content p
+{
+	color: #fff;
+        font-size: 30px;
+}
+
+.buy-cake .inner-content .overlay-content h3
+{
+	padding-top: 20%;
+	color: #8f72bf;
+}
+
+.buy-cake .inner-content:hover .overlay-content
+{
+	top: 0px;
+}
+
+.buy-cake .inner-content .overlay-content p a
+{
+	
+	font-weight: bold;
+
+}
+
+.meta.buy-cake {
+	overflow: hidden;
+}

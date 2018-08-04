@@ -12,17 +12,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="header-cart hidden-md hidden-lg">
+            <div class="hidden-md hidden-lg">
                 @if (Cart::instance('default')->count() > 0)
-                    <div class="cart-pic"><span class="glyphicon glyphicon-shopping-cart"></span></div>
-                
-                    <div class="cart-amount"><a href="{{ route('cart.index') }}" class="header-cart-icon"><strong> {{ Cart::instance('default')->count() }} </strong></a></div>
+                     <a href="{{ route('cart.index') }}" class="glyph__container ">  <span class="glyphicon glyphicon-shopping-cart"></span><strong> {{ Cart::instance('default')->count() }} </strong></a>
                 @else
-                    <a href="{{ route('cart.index') }}" class="header-cart-icon"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    <a href="{{ route('cart.index') }}" class="glyph__container"><span class="glyphicon glyphicon-shopping-cart"></span></a>
                 @endif
             </div>
         </div>
-        <nav class="navbar navbar-default" role="navigation">
+        <nav class="navbar navbar-default">
             <div class="collapse  navbar-collapse" id="readable-navbar-collapse">
                 <ul class="navigation">
                     <li class="{{ Request::is('/') ? 'dropdown active' : '' }}">
@@ -32,15 +30,15 @@
                     <li class="{{ (Request::is('products') || Request::is('products/*')) ? 'dropdown active' : '' }}">
                         <a href="/products" class="dropdown-toggle" data-toggle="dropdown">Ассортимент</a>
                     </li>
-                     <li class="">
-                        <a href="/elements" class="dropdown-toggle" data-toggle="dropdown">Верстка</a>
-                    </li>
-                  
+                                
                     <li class="{{ (Request::is('feedback') || Request::is('feedback/*')) ? 'dropdown active' : '' }}">
                         <a href="/feedback" class="dropdown-toggle" data-toggle="dropdown">Обратная связь</a>
                     </li>
                     <li class="{{ Request::is('contacts') ? 'dropdown active' : '' }}">
                         <a href="/contacts" class="dropdown-toggle" data-toggle="dropdown">Контакты</a>
+                    </li>
+                    <li class="{{ Request::is('contacts') ? 'dropdown active' : '' }} hidden-lg hidden-md">
+                        <a href="{{route('lk')}}"  class="dropdown-toggle" data-toggle="dropdown">Личный кабинет</a>
                     </li>
                     @if (!Auth::user())
                         <li class="{{ (Request::is('login') || Request::is('admin/login')) ? 'dropdown active' : '' }}">
@@ -56,9 +54,9 @@
         </nav>
         <div class="hidden-xs hidden-sm">
                 @if (Cart::instance('default')->count() > 0)
-                    <div class="cart-pic"><span class="glyphicon glyphicon-shopping-cart"></span></div>
                 
-                    <div class="cart-amount"><a href="{{ route('cart.index') }}" class="glyph__container "><strong> {{ Cart::instance('default')->count() }} </strong></a></div>
+                
+                <a href="{{ route('cart.index') }}" class="glyph__container ">  <span class="glyphicon glyphicon-shopping-cart"></span><strong> {{ Cart::instance('default')->count() }} </strong></a>
                 @else
                     <a href="{{ route('cart.index') }}" class="glyph__container "><span class="glyphicon glyphicon-shopping-cart"></span></a>
                 @endif
